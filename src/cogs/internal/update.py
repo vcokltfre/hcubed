@@ -7,7 +7,6 @@ from src.internal.bot import Bot
 from src.internal.context import Context
 
 
-
 class Update(commands.Cog):
     """Run bot updates as a command."""
 
