@@ -85,3 +85,30 @@ class Database:
     async def fetch(self, query: str, *args):
         async with self.pool.acquire() as conn:
             return await conn.fetch(query, *args)
+
+    async def create_user(self, id: int):
+        return await self.fetchrow("INSERT INTO Users (id) VALUES ($1) RETURNING *;", id)
+
+    async def fetch_user(self, id: int):
+        user = await self.fetchrow("SELECT * FROM Users WHERE id = $1;", id)
+
+        if not user:
+            user = await self.create_user(id)
+
+        return user
+
+    async def create_guild(self, id: int, owner_id: int):
+        user = await self.fetch_user(owner_id)
+
+        if user["banned"]:
+            raise ValueError("User is banned.")
+
+        return await self.fetchrow("INSERT INTO Guilds (id, owner_id) VALUES ($1) RETURNING *;", id, owner_id)
+
+    async def fetch_guild(self, id: int):
+        guild = await self.fetchrow("SELECT * FROM Guilds WHERE id = $1;", id)
+
+        if not guild:
+            guild = await self.create_guild(id)
+
+        return guild
