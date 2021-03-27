@@ -22,3 +22,6 @@ class TimedCache:
             return None
 
         return item["value"]
+
+    def __delitem__(self, key):
+        del self.items[key]
