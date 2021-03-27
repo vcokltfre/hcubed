@@ -117,7 +117,8 @@ class Database:
         await self.execute("UPDATE Guilds SET prefix = $1 WHERE id = $2;", prefix, id)
 
     async def create_restart(self, channel: int, message: int):
-        await self.execute("UPDATE Restarts SET done = TRUE; INSERT INTO Restarts (channel, message) VALUES ($1, $2);", channel, message)
+        await self.execute("UPDATE Restarts SET done = TRUE;")
+        await self.execute("INSERT INTO Restarts (channel, message) VALUES ($1, $2);", channel, message)
 
     async def get_restart(self):
         data = await self.fetchrow("SELECT * FROM Restarts WHERE done = FALSE;")
