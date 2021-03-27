@@ -22,7 +22,7 @@ def can_access(name: str, allow_dms: bool = False):
                 return True
             return False
 
-        guild = await ctx.bot.db.fetch_guild(ctx.guild.id)
+        guild = await ctx.bot.db.fetch_guild(ctx.guild.id, ctx.guild.owner_id)
 
         if guild["plevel"] >= 1000:
             return True

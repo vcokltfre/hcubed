@@ -1,0 +1,1 @@
+ALTER TABLE Guilds ADD COLUMN prefix VARCHAR(16);

@@ -103,12 +103,12 @@ class Database:
         if user["banned"]:
             raise ValueError("User is banned.")
 
-        return await self.fetchrow("INSERT INTO Guilds (id, owner_id) VALUES ($1) RETURNING *;", id, owner_id)
+        return await self.fetchrow("INSERT INTO Guilds (id, owner_id, prefix) VALUES ($1, $2, $3) RETURNING *;", id, owner_id, "hc!")
 
-    async def fetch_guild(self, id: int):
+    async def fetch_guild(self, id: int, owner_id: int):
         guild = await self.fetchrow("SELECT * FROM Guilds WHERE id = $1;", id)
 
         if not guild:
-            guild = await self.create_guild(id)
+            guild = await self.create_guild(id, owner_id)
 
         return guild

@@ -8,6 +8,7 @@ from .help import Help
 from .context import Context
 
 from src.utils.database import Database
+from src.utils.cache import TimedCache
 
 
 class Bot(commands.Bot):
@@ -27,6 +28,8 @@ class Bot(commands.Bot):
         )
 
         self.db: Database = Database()
+
+        self.prefixes = TimedCache(10)
 
     def load_extensions(self, *exts) -> None:
         """Load a given set of extensions."""
@@ -57,7 +60,18 @@ class Bot(commands.Bot):
     async def get_prefix(self, message: Message):
         """Get a dynamic prefix."""
 
-        return "!"
+        if not message.guild:
+            return "hc!"
+
+        prefix = self.prefixes[message.guild.id]
+
+        if prefix:
+            return prefix
+
+        guild = await self.db.fetch_guild(message.guild.id, message.guild.owner_id)
+        self.prefixes[message.guild.id] = guild["prefix"]
+
+        return self.prefixes[message.guild.id]
 
     async def get_context(self, message: Message):
         """Get the context with the custom context class."""
