@@ -22,10 +22,12 @@ class Update(commands.Cog):
     async def update(self, ctx: Context):
         """Update the bot."""
 
-        await ctx.reply(embed=Embed(
+        msg = await ctx.reply(embed=Embed(
             title="Bot Restarting",
             colour=0x87CEEB,
         ))
+
+        await self.bot.db.create_restart(msg.channel.id, msg.id)
 
         system("./update.sh")
 

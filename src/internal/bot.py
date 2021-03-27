@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import Intents, Message
+from discord import Intents, Message, Embed
 
 from loguru import logger
 from traceback import format_exc
@@ -82,3 +82,22 @@ class Bot(commands.Bot):
         """Log the connect event."""
 
         logger.info("Connected to Discord.")
+
+    async def on_ready(self):
+        restart = await self.db.get_restart()
+
+        if not restart:
+            return
+
+        channel = self.get_channel(restart["cid"])
+        if not channel:
+            return
+
+        message = await channel.fetch_message(restart["mid"])
+        if not message:
+            return
+
+        await message.reply(embed=Embed(
+            title="Restart Complete",
+            colour=0x87CEEB,
+        ))
