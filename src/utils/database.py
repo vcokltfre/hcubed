@@ -112,3 +112,6 @@ class Database:
             guild = await self.create_guild(id, owner_id)
 
         return guild
+
+    async def set_guild_prefix(self, id: int, prefix: str):
+        await self.execute("UPDATE Guilds SET prefix = $1 WHERE id = $2;", prefix, id)

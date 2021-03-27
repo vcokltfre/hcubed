@@ -29,7 +29,7 @@ class Bot(commands.Bot):
 
         self.db: Database = Database()
 
-        self.prefixes = TimedCache(10)
+        self.prefixes = TimedCache(30)
 
     def load_extensions(self, *exts) -> None:
         """Load a given set of extensions."""
