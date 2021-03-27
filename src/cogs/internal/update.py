@@ -2,6 +2,7 @@ from discord import Embed
 from discord.ext import commands
 
 from os import system
+from loguru import logger
 
 from src.internal.bot import Bot
 from src.internal.context import Context
@@ -27,7 +28,10 @@ class Update(commands.Cog):
             colour=0x87CEEB,
         ))
 
-        await self.bot.db.create_restart(msg.channel.id, msg.id)
+        try:
+            await self.bot.db.create_restart(msg.channel.id, msg.id)
+        except:
+            logger.error("Failed to create DB restart.")
 
         system("./update.sh")
 
