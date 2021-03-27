@@ -60,7 +60,7 @@ class Bot(commands.Bot):
     async def get_prefix(self, message: Message):
         """Get a dynamic prefix."""
 
-        if not message.guild:
+        if message.content.startswith("hc!") or not message.guild:
             return "hc!"
 
         prefix = self.prefixes[message.guild.id]
