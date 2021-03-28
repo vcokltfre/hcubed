@@ -1,6 +1,7 @@
 from asyncpg import create_pool
 from os import getenv, walk
 from traceback import format_exc
+from datetime import datetime
 
 from loguru import logger
 
@@ -124,3 +125,17 @@ class Database:
         data = await self.fetchrow("SELECT * FROM Restarts WHERE done = FALSE;")
         await self.execute("UPDATE Restarts SET done = TRUE;")
         return data
+
+    async def create_reminder(self, uid: int, gid: int, cid: int, mid: int, time: datetime, content: str):
+        res = await self.fetchrow(
+            "INSERT INTO Reminders (userid, gid, cid, mid, content, expires) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
+            uid, gid, cid, mid, content, time,
+        )
+
+        return res["id"]
+
+    async def get_expired_reminders(self):
+        return await self.fetch("SELECT * FROM Reminders WHERE expired = FALSE;")
+
+    async def mark_reminder_completed(self, id: int):
+        await self.execute("UPDATE Reminders SET expired = TRUE WHERE id = $1;", id)

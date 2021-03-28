@@ -14,6 +14,7 @@ bot.load_extensions(
     "src.cogs.internal.update",
     "src.cogs.internal.status",
     "src.cogs.config.config",
+    "src.cogs.utility.reminders",
 )
 
 bot.run(getenv("TOKEN"))
