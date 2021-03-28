@@ -1,6 +1,7 @@
 from discord.ext import commands
 from discord import Intents, Message, Embed
 
+from time import time
 from loguru import logger
 from traceback import format_exc
 
@@ -16,6 +17,8 @@ class Bot(commands.Bot):
 
     def __init__(self, *args, **kwargs):
         logger.info("Starting up...")
+
+        self.start_time = time()
 
         intents = Intents.all()
 
