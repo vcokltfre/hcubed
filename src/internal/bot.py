@@ -1,5 +1,5 @@
 from discord.ext import commands
-from discord import Intents, Message, Embed
+from discord import Intents, Message, Embed, AllowedMentions
 
 from time import time
 from loguru import logger
@@ -26,6 +26,11 @@ class Bot(commands.Bot):
             command_prefix=self.get_prefix,
             intents=intents,
             help_command=Help(),
+            allowed_mentions=AllowedMentions(
+                roles=False,
+                everyone=False,
+                replied_user=False,
+            ),
             *args,
             **kwargs
         )
