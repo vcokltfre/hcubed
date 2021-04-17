@@ -1,6 +1,7 @@
 from discord.ext import commands
 from discord import Intents, Message, Embed, AllowedMentions
 
+from git import Repo
 from time import time
 from loguru import logger
 from traceback import format_exc
@@ -109,3 +110,16 @@ class Bot(commands.Bot):
             title="Restart Complete",
             colour=0x87CEEB,
         ))
+
+        alerts = await self.db.get_restart_alerts()
+        repo = Repo(".")
+
+        embed = Embed(
+            title="Restart Completed",
+            colour=0x87CEEB,
+            description=f"Commit hash: [{str(repo.head.commit)[:7]}](https://github.com/vcokltfre/hcubed/commit/{repo.head.commit})"
+        )
+
+        for alert in alerts:
+            channel = self.get_channel(alert["channelid"])
+            self.loop.create_task(channel.send(embed=embed))

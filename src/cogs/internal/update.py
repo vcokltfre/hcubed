@@ -48,6 +48,18 @@ class Update(commands.Cog):
 
         await ctx.message.add_reaction("👌")
 
+    @commands.command(name="rsalert", aliases=["alert"])
+    @commands.is_owner()
+    async def restart_alert(self, ctx: Context, channel: int, value: str):
+        """Create a restart alert channel."""
+
+        if value == "on":
+            await self.bot.db.create_restart_alert(channel)
+            await ctx.reply(f"Now alerting restarts on <#{channel}>")
+        else:
+            await self.bot.db.delete_restart_alert(channel)
+            await ctx.reply(f"No longer alerting restarts on <#{channel}>")
+
 
 def setup(bot: Bot):
     bot.add_cog(Update(bot))

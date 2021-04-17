@@ -139,3 +139,12 @@ class Database:
 
     async def mark_reminder_completed(self, id: int):
         await self.execute("UPDATE Reminders SET expired = TRUE WHERE id = $1;", id)
+
+    async def create_restart_alert(self, channel: int):
+        await self.execute("INSERT INTO RestartAlerts VALUES ($1);", channel)
+
+    async def delete_restart_alert(self, channel: int):
+        await self.execute("DELETE FROM RestartAlerts WHERE channel = $1;", channel)
+
+    async def get_restart_alerts(self):
+        return await self.fetch("SELECT * FROM RestartAlerts;")
