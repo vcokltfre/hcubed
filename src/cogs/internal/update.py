@@ -19,7 +19,7 @@ class Update(commands.Cog):
     async def run(self, ctx: Context):
         pass
 
-    @run.command(name="update")
+    @run.command(name="update", aliases=["deploy"])
     async def update(self, ctx: Context):
         """Update the bot."""
 
