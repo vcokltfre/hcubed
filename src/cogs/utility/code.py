@@ -1,3 +1,5 @@
+# This code in its entirity has been taken from github.com/python-discord/bot
+
 import logging
 import re
 import textwrap
