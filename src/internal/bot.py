@@ -5,6 +5,7 @@ from git import Repo
 from time import time
 from loguru import logger
 from traceback import format_exc
+from aiohttp import ClientSession
 
 from .help import Help
 from .context import Context
@@ -37,6 +38,7 @@ class Bot(commands.Bot):
         )
 
         self.db: Database = Database()
+        self.http_session: ClientSession = None
 
         self.prefixes = TimedCache(30)
 
@@ -89,6 +91,8 @@ class Bot(commands.Bot):
 
     async def on_connect(self):
         """Log the connect event."""
+
+        self.http_session = ClientSession()
 
         logger.info("Connected to Discord.")
 
