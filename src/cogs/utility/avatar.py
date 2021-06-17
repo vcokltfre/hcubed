@@ -13,10 +13,10 @@ class Avatar(commands.Cog):
         self.bot = bot
 
     @commands.command(name="shavatar")
-    async def shavatar(self, ctx: Context) -> None:
+    async def shavatar(self, ctx: Context, *, text: str = None) -> None:
         """Generate an avatar with SHAvatar."""
 
-        avatar = generate(str(ctx.author.id), size=512)
+        avatar = generate(text or str(ctx.author.id), size=512)
         avatar.save("./avatar.png")
 
         await ctx.reply(file=File("./avatar.png"))
