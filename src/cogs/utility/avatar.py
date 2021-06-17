@@ -17,9 +17,9 @@ class Avatar(commands.Cog):
         """Generate an avatar with SHAvatar."""
 
         avatar = generate(str(ctx.author.id), size=512)
-        avatar.save("/tmp/avatar.png")
+        avatar.save("./avatar.png")
 
-        await ctx.reply(file=File("/tmp/avatar.png"))
+        await ctx.reply(file=File("./avatar.png"))
 
 
 def setup(bot: Bot):
