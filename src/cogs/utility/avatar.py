@@ -1,5 +1,3 @@
-from io import BytesIO
-
 from discord import File
 from discord.ext import commands
 from shavatar import generate
@@ -18,12 +16,10 @@ class Avatar(commands.Cog):
     async def shavatar(self, ctx: Context) -> None:
         """Generate an avatar with SHAvatar."""
 
-        io = BytesIO()
-
         avatar = generate(str(ctx.author.id), size=512)
-        avatar.save(io, "png")
+        avatar.save("/tmp/avatar.png")
 
-        await ctx.reply(file=File(io, "avatar.png"))
+        await ctx.reply(file=File("/tmp/avatar.png"))
 
 
 def setup(bot: Bot):
