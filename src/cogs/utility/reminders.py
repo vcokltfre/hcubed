@@ -39,7 +39,7 @@ class Reminders(commands.Cog):
 
         id = await self.bot.db.create_reminder(ctx.author.id, ctx.guild.id, ctx.channel.id, ctx.message.id, dt, message)
 
-        await ctx.reply(f"Reminder created with ID {id} set to remind you at {dt}.")
+        await ctx.reply(f"Reminder created with ID {id} set to remind you at <t:{int(dt.timestamp())}:F>.")
 
     @tasks.loop(seconds=10)
     async def remind_loop(self):
