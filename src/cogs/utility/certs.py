@@ -42,6 +42,7 @@ class Certs(commands.Cog):
         self.bot = bot
 
     @commands.command(name="certs")
+    @commands.is_owner()
     async def certs(self, ctx: Context, dur: int, *, pattern: str = None) -> None:
         """Listen for specific ceritificate updates."""
 
