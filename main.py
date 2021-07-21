@@ -16,6 +16,7 @@ bot.load_extensions(
     "src.cogs.config.config",
     "src.cogs.utility.reminders",
     "src.cogs.utility.avatar",
+    "src.cogs.utility.certs",
     "src.cogs.utility.code",
 )
 

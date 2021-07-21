@@ -16,6 +16,7 @@ discord-ext-menus = {git = "https://github.com/Rapptz/discord-ext-menus"}
 GitPython = "^3.1.14"
 parsedatetime = "^2.6"
 shavatar = "^1.0.0"
+aiocertstream = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.11.1"

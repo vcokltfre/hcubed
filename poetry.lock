@@ -1,4 +1,15 @@
 [[package]]
+name = "aiocertstream"
+version = "0.1.0"
+description = "An async client for certstream."
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+
+[package.dependencies]
+aiohttp = ">=3.7.4,<4.0.0"
+
+[[package]]
 name = "aiohttp"
 version = "3.7.4.post0"
 description = "Async http client/server framework (asyncio)"
@@ -469,9 +480,13 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "761f064efb695a19c9133b072d22f623fbc1d1ec480f2661f961778cb270f653"
+content-hash = "82e4bee6c114b0747d39fa4111d395b8f246faec723e68755d26199a0063093d"
 
 [metadata.files]
+aiocertstream = [
+    {file = "aiocertstream-0.1.0-py3-none-any.whl", hash = "sha256:85621acda679ae865d547bc0a9d689bbb0fd63a7e043c68bfdae365406e8608e"},
+    {file = "aiocertstream-0.1.0.tar.gz", hash = "sha256:703e865bc3a9dd366895ebd08998f1db0eda5cb1d9e16700a25d17c959613c9d"},
+]
 aiohttp = [
     {file = "aiohttp-3.7.4.post0-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:3cf75f7cdc2397ed4442594b935a11ed5569961333d49b7539ea741be2cc79d5"},
     {file = "aiohttp-3.7.4.post0-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:4b302b45040890cea949ad092479e01ba25911a15e648429c7c5aae9650c67a8"},
