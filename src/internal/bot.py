@@ -65,10 +65,10 @@ class Bot(commands.Bot):
     async def maybe_delete(self, invoker: Message, message: Message) -> None:
         await message.add_reaction("❌")
 
-        check = lambda r, u: u == invoker.author and str(r.emoji) == "❌"
+        check = lambda r, u: u == invoker.author and str(r.emoji) == "❌" and r.message.id == invoker.id
 
         try:
-            reaction, user = await self.bot.wait_for("reaction_add", check=check, timeout=30)
+            reaction, user = await self.wait_for("reaction_add", check=check, timeout=30)
         except asyncio.TimeoutError:
             await message.clear_reaction("❌")
             return
