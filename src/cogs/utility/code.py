@@ -233,7 +233,8 @@ class CodeSnippets(Cog):
 
             if 0 < len(message_to_send) <= 2000 and len(all_snippets) <= 15:
                 await message.edit(suppress=True)
-                await message.channel.send(message_to_send),
+                msg = await message.channel.send(message_to_send)
+                await self.bot.maybe_delete(message, msg)
 
 
 def setup(bot: Bot) -> None:

@@ -1,3 +1,5 @@
+import asyncio
+
 from discord.ext import commands
 from discord import Intents, Message, Embed, AllowedMentions
 
@@ -59,6 +61,19 @@ class Bot(commands.Bot):
                 success += 1
 
         logger.info(f"Cog loading finished. Success: {success}. Failed: {len(exts) - success}.")
+
+    async def maybe_delete(self, invoker: Message, message: Message) -> None:
+        await message.add_reaction("❌")
+
+        check = lambda r, u: u == invoker.author and str(r.emoji) == "❌"
+
+        try:
+            reaction, user = await self.bot.wait_for("reaction_add", check=check, timeout=30)
+        except asyncio.TimeoutError:
+            await message.clear_reaction("❌")
+            return
+
+        await message.delete()
 
     async def login(self, *args, **kwargs) -> None:
         """Create the database connection before login."""
