@@ -10,6 +10,7 @@ from src.internal.context import Context
 
 
 INLINE = compile(r"{i:[^}]+}")
+ISUM = compile(r"{s:[^}]+}")
 
 
 class Invokation(commands.Cog):
@@ -27,6 +28,8 @@ class Invokation(commands.Cog):
 
         if match := INLINE.search(message.content):
             command = match.group()[3:-1]
+        elif match := ISUM.search(message.content):
+            command = "jsk py " + match.group()[3:-1]
         else:
             return
 
