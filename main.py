@@ -11,6 +11,7 @@ bot = Bot()
 bot.load_extensions(
     "jishaku",
     "src.cogs.internal.error_handler",
+    "src.cogs.internal.invokation",
     "src.cogs.internal.update",
     "src.cogs.internal.status",
     "src.cogs.config.config",
