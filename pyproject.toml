@@ -7,7 +7,7 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-"discord.py" = "^1.6.0"
+"discord.py" = {git = "https://github.com/Rapptz/discord.py.git", rev = "feae059c6858e419552ec4096f1ad2692bb4c484"}
 python-dotenv = "^0.15.0"
 loguru = "^0.5.3"
 jishaku = "^1.20.0"
