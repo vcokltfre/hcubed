@@ -1,6 +1,6 @@
 [[package]]
 name = "aiocertstream"
-version = "0.1.0"
+version = "0.1.5"
 description = "An async client for certstream."
 category = "main"
 optional = false
@@ -492,8 +492,8 @@ content-hash = "f1f6bbcae664cbdd7de0be53f1aaa58a15640a866aa260fcead67e8eb1adfffe
 
 [metadata.files]
 aiocertstream = [
-    {file = "aiocertstream-0.1.0-py3-none-any.whl", hash = "sha256:85621acda679ae865d547bc0a9d689bbb0fd63a7e043c68bfdae365406e8608e"},
-    {file = "aiocertstream-0.1.0.tar.gz", hash = "sha256:703e865bc3a9dd366895ebd08998f1db0eda5cb1d9e16700a25d17c959613c9d"},
+    {file = "aiocertstream-0.1.5-py3-none-any.whl", hash = "sha256:4e01947c7131da98887d8941d4df5c5efd85f7f4118845ebe5dc8c07f967a3c2"},
+    {file = "aiocertstream-0.1.5.tar.gz", hash = "sha256:67fafd9b1ee82688fa104e9ede512c2918a34850c111295b2b5e95f61cc89d81"},
 ]
 aiohttp = [
     {file = "aiohttp-3.7.4.post0-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:3cf75f7cdc2397ed4442594b935a11ed5569961333d49b7539ea741be2cc79d5"},
