@@ -49,11 +49,11 @@ class Certs(commands.Cog):
     async def certs(self, ctx: Context, dur: int, *, pattern: str = None) -> None:
         """Listen for specific ceritificate updates."""
 
-        msg = await ctx.reply(
-            f"Starting scan on pattern `{pattern}` for {dur} seconds."
-        )
 
         thread = await ctx.create_message_thread(name="Certificate Scanning", auto_archive_duration=60)
+        msg = await thread.send(
+            f"Starting scan on pattern `{pattern}` for {dur} seconds."
+        )
 
         context = CertContext(self, dur, re_compile(pattern), thread.send)
 
