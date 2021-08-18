@@ -16,7 +16,6 @@ My current uptime is {uptime}.
 I have {cogs} cogs loaded with a total of {commands} commands.
 
 discord.py version: {dpyver}
-shards: {shard_count} {shard_ids}
 """
 
 
@@ -39,8 +38,6 @@ class Status(commands.Cog):
             cogs=len(self.bot.cogs),
             commands=len(self.bot.commands),
             dpyver=discord.__version__,
-            shard_count=self.bot.shard_count,
-            shard_ids=", ".join([str(sid) for sid in self.bot.shard_ids]),
         )
 
         embed = Embed(
