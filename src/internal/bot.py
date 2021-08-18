@@ -15,8 +15,8 @@ from .context import Context
 from .help import Help
 
 
-class Bot(commands.Bot):
-    """A subclass of commands.Bot with additional functionality."""
+class Bot(commands.AutoShardedBot):
+    """A subclass of commands.AutoShardedBot with additional functionality."""
 
     def __init__(self, *args, **kwargs):
         logger.info("Starting up...")

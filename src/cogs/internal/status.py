@@ -1,6 +1,7 @@
 from datetime import timedelta
 from time import time
 
+import discord
 from discord import Embed
 from discord.ext import commands
 from git import Repo
@@ -13,6 +14,9 @@ I'm logged in as {bot} ({bot.id}).
 I can see {guilds} servers, and {users} users.
 My current uptime is {uptime}.
 I have {cogs} cogs loaded with a total of {commands} commands.
+
+discord.py version: {dpyver}
+shards: {shard_count} {shard_ids}
 """
 
 
@@ -34,6 +38,9 @@ class Status(commands.Cog):
             uptime=str(timedelta(seconds=round(time() - self.bot.start_time))),
             cogs=len(self.bot.cogs),
             commands=len(self.bot.commands),
+            dpyver=discord.__version__,
+            shard_count=self.bot.shard_count,
+            shard_ids=", ".join([str(sid) for sid in self.bot.shard_ids]),
         )
 
         embed = Embed(
