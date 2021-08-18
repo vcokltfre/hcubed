@@ -53,7 +53,9 @@ class Certs(commands.Cog):
             f"Starting scan on pattern `{pattern}` for {dur} seconds."
         )
 
-        context = CertContext(self, dur, re_compile(pattern), ctx.send)
+        thread = await ctx.create_message_thread(name="Certificate Scanning", auto_archive_duration=60)
+
+        context = CertContext(self, dur, re_compile(pattern), thread.send)
 
         await context.start()
         await context._client._session.close()
