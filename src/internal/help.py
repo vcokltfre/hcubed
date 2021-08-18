@@ -1,8 +1,8 @@
+import typing as t
+
 import discord
 from discord.ext import commands, menus
 from discord.ext.commands import HelpCommand
-
-import typing as t
 
 from .context import Context
 

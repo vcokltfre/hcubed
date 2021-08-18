@@ -1,19 +1,18 @@
 import asyncio
-
-from discord.ext import commands
-from discord import Intents, Message, Embed, AllowedMentions
-
-from git import Repo
 from time import time
-from loguru import logger
 from traceback import format_exc
+
 from aiohttp import ClientSession
+from discord import AllowedMentions, Embed, Intents, Message
+from discord.ext import commands
+from git import Repo
+from loguru import logger
 
-from .help import Help
-from .context import Context
-
-from src.utils.database import Database
 from src.utils.cache import TimedCache
+from src.utils.database import Database
+
+from .context import Context
+from .help import Help
 
 
 class Bot(commands.Bot):
@@ -36,7 +35,7 @@ class Bot(commands.Bot):
                 replied_user=False,
             ),
             *args,
-            **kwargs
+            **kwargs,
         )
 
         self.db: Database = Database()
@@ -60,15 +59,23 @@ class Bot(commands.Bot):
                 logger.info(f"Successfully loaded cog {ext}.")
                 success += 1
 
-        logger.info(f"Cog loading finished. Success: {success}. Failed: {len(exts) - success}.")
+        logger.info(
+            f"Cog loading finished. Success: {success}. Failed: {len(exts) - success}."
+        )
 
     async def maybe_delete(self, invoker: Message, message: Message) -> None:
         await message.add_reaction("❌")
 
-        check = lambda r, u: u == invoker.author and str(r.emoji) == "❌" and r.message.id == message.id
+        check = (
+            lambda r, u: u == invoker.author
+            and str(r.emoji) == "❌"
+            and r.message.id == message.id
+        )
 
         try:
-            reaction, user = await self.wait_for("reaction_add", check=check, timeout=30)
+            reaction, user = await self.wait_for(
+                "reaction_add", check=check, timeout=30
+            )
         except asyncio.TimeoutError:
             await message.clear_reaction("❌")
             return
@@ -125,10 +132,12 @@ class Bot(commands.Bot):
         if not message:
             return
 
-        await message.reply(embed=Embed(
-            title="Restart Complete",
-            colour=0x87CEEB,
-        ))
+        await message.reply(
+            embed=Embed(
+                title="Restart Complete",
+                colour=0x87CEEB,
+            )
+        )
 
         alerts = await self.db.get_restart_alerts()
         repo = Repo(".")
@@ -136,7 +145,7 @@ class Bot(commands.Bot):
         embed = Embed(
             title="Restart Completed",
             colour=0x87CEEB,
-            description=f"Commit hash: [{str(repo.head.commit)[:7]}](https://github.com/vcokltfre/hcubed/commit/{repo.head.commit})"
+            description=f"Commit hash: [{str(repo.head.commit)[:7]}](https://github.com/vcokltfre/hcubed/commit/{repo.head.commit})",
         )
 
         for alert in alerts:

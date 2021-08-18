@@ -1,13 +1,12 @@
-from discord import Message
-from discord.ext import commands
-
 from copy import copy
 from re import compile
+
+from discord import Message
+from discord.ext import commands
 from loguru import logger
 
 from src.internal.bot import Bot
 from src.internal.context import Context
-
 
 INLINE = compile(r"{i:[^}]+}")
 ISUM = compile(r"{s:[^}]+}")

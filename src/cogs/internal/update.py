@@ -1,7 +1,7 @@
+from os import system
+
 from discord import Embed
 from discord.ext import commands
-
-from os import system
 from loguru import logger
 
 from src.internal.bot import Bot
@@ -23,10 +23,12 @@ class Update(commands.Cog):
     async def update(self, ctx: Context):
         """Update the bot."""
 
-        msg = await ctx.reply(embed=Embed(
-            title="Bot Restarting",
-            colour=0x87CEEB,
-        ))
+        msg = await ctx.reply(
+            embed=Embed(
+                title="Bot Restarting",
+                colour=0x87CEEB,
+            )
+        )
 
         try:
             await self.bot.db.create_restart(msg.channel.id, msg.id)
@@ -39,10 +41,12 @@ class Update(commands.Cog):
     async def pull(self, ctx: Context):
         """Update the bot."""
 
-        await ctx.reply(embed=Embed(
-            title="Pulling from git...",
-            colour=0x87CEEB,
-        ))
+        await ctx.reply(
+            embed=Embed(
+                title="Pulling from git...",
+                colour=0x87CEEB,
+            )
+        )
 
         system("git pull origin master")
 

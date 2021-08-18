@@ -1,8 +1,8 @@
-from asyncpg import create_pool
+from datetime import datetime
 from os import getenv, walk
 from traceback import format_exc
-from datetime import datetime
 
+from asyncpg import create_pool
 from loguru import logger
 
 
@@ -33,7 +33,9 @@ class Database:
             return
 
         try:
-            migration = await self.fetchrow("SELECT id FROM Migrations ORDER BY id DESC LIMIT 1;")
+            migration = await self.fetchrow(
+                "SELECT id FROM Migrations ORDER BY id DESC LIMIT 1;"
+            )
         except Exception as e:
             print(e)
             migration = None
@@ -88,7 +90,9 @@ class Database:
             return await conn.fetch(query, *args)
 
     async def create_user(self, id: int):
-        return await self.fetchrow("INSERT INTO Users (id) VALUES ($1) RETURNING *;", id)
+        return await self.fetchrow(
+            "INSERT INTO Users (id) VALUES ($1) RETURNING *;", id
+        )
 
     async def fetch_user(self, id: int):
         user = await self.fetchrow("SELECT * FROM Users WHERE id = $1;", id)
@@ -104,7 +108,12 @@ class Database:
         if user["banned"]:
             raise ValueError("User is banned.")
 
-        return await self.fetchrow("INSERT INTO Guilds (id, owner_id, prefix) VALUES ($1, $2, $3) RETURNING *;", id, owner_id, "hc!")
+        return await self.fetchrow(
+            "INSERT INTO Guilds (id, owner_id, prefix) VALUES ($1, $2, $3) RETURNING *;",
+            id,
+            owner_id,
+            "hc!",
+        )
 
     async def fetch_guild(self, id: int, owner_id: int):
         guild = await self.fetchrow("SELECT * FROM Guilds WHERE id = $1;", id)
@@ -119,17 +128,26 @@ class Database:
 
     async def create_restart(self, channel: int, message: int):
         await self.execute("UPDATE Restarts SET done = TRUE;")
-        await self.execute("INSERT INTO Restarts (cid, mid) VALUES ($1, $2);", channel, message)
+        await self.execute(
+            "INSERT INTO Restarts (cid, mid) VALUES ($1, $2);", channel, message
+        )
 
     async def get_restart(self):
         data = await self.fetchrow("SELECT * FROM Restarts WHERE done = FALSE;")
         await self.execute("UPDATE Restarts SET done = TRUE;")
         return data
 
-    async def create_reminder(self, uid: int, gid: int, cid: int, mid: int, time: datetime, content: str):
+    async def create_reminder(
+        self, uid: int, gid: int, cid: int, mid: int, time: datetime, content: str
+    ):
         res = await self.fetchrow(
             "INSERT INTO Reminders (userid, gid, cid, mid, content, expires) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;",
-            uid, gid, cid, mid, content, time,
+            uid,
+            gid,
+            cid,
+            mid,
+            content,
+            time,
         )
 
         return res["id"]

@@ -1,13 +1,12 @@
+from datetime import timedelta
+from time import time
+
 from discord import Embed
 from discord.ext import commands
-
 from git import Repo
-from time import time
-from datetime import timedelta
 
 from src.internal.bot import Bot
 from src.internal.context import Context
-
 
 desc = """
 I'm logged in as {bot} ({bot.id}).

@@ -1,4 +1,5 @@
-from re import Pattern, compile as re_compile
+from re import Pattern
+from re import compile as re_compile
 from time import time
 
 from aiocertstream import Client
@@ -10,7 +11,9 @@ from src.internal.context import Context
 
 
 class CertContext:
-    def __init__(self, cog: commands.Cog, expire_after: int, pattern: Pattern, callback) -> None:
+    def __init__(
+        self, cog: commands.Cog, expire_after: int, pattern: Pattern, callback
+    ) -> None:
         self.cog = cog
         self.expire_after = expire_after
         self.pattern = pattern
@@ -46,7 +49,9 @@ class Certs(commands.Cog):
     async def certs(self, ctx: Context, dur: int, *, pattern: str = None) -> None:
         """Listen for specific ceritificate updates."""
 
-        msg = await ctx.reply(f"Starting scan on pattern `{pattern}` for {dur} seconds.")
+        msg = await ctx.reply(
+            f"Starting scan on pattern `{pattern}` for {dur} seconds."
+        )
 
         context = CertContext(self, dur, re_compile(pattern), ctx.send)
 

@@ -1,9 +1,9 @@
+from datetime import datetime
+
 from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import CommandError, errors
-
 from loguru import logger
-from datetime import datetime
 
 from src.internal.bot import Bot
 from src.internal.context import Context
@@ -23,7 +23,9 @@ class ErrorHandler(commands.Cog):
             timestamp=datetime.utcnow(),
         )
 
-        embed.set_footer(text=str(self.bot.user.name), icon_url=str(self.bot.user.avatar_url))
+        embed.set_footer(
+            text=str(self.bot.user.name), icon_url=str(self.bot.user.avatar_url)
+        )
 
         return embed
 
@@ -50,13 +52,18 @@ class ErrorHandler(commands.Cog):
         elif isinstance(error, errors.CheckFailure):
             await self.check_failure(ctx, error)
         elif isinstance(error, errors.CommandOnCooldown):
-            embed = self.get_embed("Command on cooldown", f"This command is on cooldown. Try again in {round(error.retry_after, 2)}s")
+            embed = self.get_embed(
+                "Command on cooldown",
+                f"This command is on cooldown. Try again in {round(error.retry_after, 2)}s",
+            )
             await ctx.send(embed=embed)
         else:
             embed = self.get_embed("Unexpected internal error", f"```py\n{error}\n```")
             await ctx.send(embed=embed)
 
-        logger.warning(f"Error in command {command} invoked by {ctx.message.author}\n{error.__class__.__name__}: {error}")
+        logger.warning(
+            f"Error in command {command} invoked by {ctx.message.author}\n{error.__class__.__name__}: {error}"
+        )
 
     async def user_input_error(self, ctx: Context, error: errors.UserInputError):
         """Handle a user input error."""
@@ -86,7 +93,7 @@ class ErrorHandler(commands.Cog):
         else:
             embed = self.get_embed(
                 "Input error",
-                "Something about your input seems off. Check the arguments and try again."
+                "Something about your input seems off. Check the arguments and try again.",
             )
             await ctx.send(embed=embed)
             await help_command
@@ -98,7 +105,7 @@ class ErrorHandler(commands.Cog):
         bot_missing_errors = (
             errors.BotMissingPermissions,
             errors.BotMissingRole,
-            errors.BotMissingAnyRole
+            errors.BotMissingAnyRole,
         )
 
         if isinstance(e, bot_missing_errors):

@@ -11,7 +11,9 @@ class Config(commands.Cog):
         self.bot = bot
 
     @commands.command(name="prefix")
-    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(manage_guild=True))
+    @commands.check_any(
+        commands.is_owner(), commands.has_guild_permissions(manage_guild=True)
+    )
     async def prefix(self, ctx: Context, *, new: str = None):
         """Set or get the guild prefix."""
 
