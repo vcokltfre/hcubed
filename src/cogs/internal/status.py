@@ -49,7 +49,7 @@ class Status(commands.Cog):
 
         embed.set_author(
             name=str(self.bot.user),
-            icon_url=(str(self.bot.user.avatar_url)),
+            icon_url=(str(self.bot.user.avatar.url)),
         )
 
         repo = Repo(".")
@@ -60,7 +60,7 @@ class Status(commands.Cog):
         )
 
         embed.set_footer(
-            icon_url=(str(self.bot.user.avatar_url)),
+            icon_url=(str(self.bot.user.avatar.url)),
             text=str(repo.head.commit),
         )
 

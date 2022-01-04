@@ -24,7 +24,7 @@ class ErrorHandler(commands.Cog):
         )
 
         embed.set_footer(
-            text=str(self.bot.user.name), icon_url=str(self.bot.user.avatar_url)
+            text=str(self.bot.user.name), icon_url=str(self.bot.user.avatar.url)
         )
 
         return embed
