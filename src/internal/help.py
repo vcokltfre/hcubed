@@ -107,7 +107,7 @@ class Help(HelpCommand):
     """Shows help for a command, group, or cog."""
 
     def get_command_signature(self, command: commands.Command):
-        return f"{self.clean_prefix}{command.qualified_name} {command.signature}"
+        return f"{self.context.clean_prefix}{command.qualified_name} {command.signature}"
 
     async def send_bot_help(self, mapping):
         """Sends help for the bot."""
@@ -178,7 +178,7 @@ class Help(HelpCommand):
             embed.add_field(name="Aliases", value=", ".join(group.aliases))
 
         embed.set_footer(
-            text=f"Type {self.clean_prefix}{group.name} "
+            text=f"Type {self.context.clean_prefix}{group.name} "
             "<command> to see info on each subcommand"
         )
         await self.context.send(embed=embed)
